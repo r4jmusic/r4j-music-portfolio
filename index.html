@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R4J Music | Creative Universe</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#080b12;
+  --blue:#6b9dff;
+  --text:#f4f6fb;
+  --muted:#9ba8ba;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden
+}
+button,a{font:inherit}
+button{cursor:pointer}
+
+.background-glow{
+  position:fixed;width:420px;height:420px;
+  background:#1b4c9b;
+  filter:blur(170px);opacity:.17;
+  border-radius:50%;top:10%;left:30%;
+  pointer-events:none;z-index:-1
+}
+
+#notes{
+  position:fixed;inset:0;
+  pointer-events:none;overflow:hidden;z-index:20
+}
+
+.note{
+  position:absolute;color:#8ab5ff;opacity:0;
+  animation:floatNote linear infinite;
+  text-shadow:0 0 18px #4b8dff
+}
+
+@keyframes floatNote{
+  0%{transform:translateY(110vh) rotate(0);opacity:0}
+  15%{opacity:.45}
+  85%{opacity:.3}
+  100%{transform:translateY(-15vh) rotate(35deg);opacity:0}
+}
+
+/* INTRO */
+
+#intro{
+  position:fixed;inset:0;background:#070a11;z-index:100;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  transition:opacity .8s,visibility .8s;padding:20px
+}
+
+#intro.hide{opacity:0;visibility:hidden}
+
+.intro-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(100,150,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(100,150,255,.06) 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:radial-gradient(circle,black,transparent 75%)
+}
+
+.intro-logo{
+  font-family:'Space Grotesk';
+  font-size:clamp(75px,18vw,150px);
+  font-weight:700;letter-spacing:-10px;
+  background:linear-gradient(140deg,#fff,#8db9ff 55%,#416fca);
+  -webkit-background-clip:text;color:transparent;
+  animation:logoReveal 1.5s ease both;position:relative
+}
+
+@keyframes logoReveal{
+  from{opacity:0;transform:translateY(35px) scale(.75);filter:blur(15px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+
+.intro-sub{
+  letter-spacing:7px;color:#a9b9d4;
+  font-size:11px;margin-top:8px;
+  animation:fadeIn 2s ease both
+}
+
+.enter-btn{
+  margin-top:48px;padding:15px 27px;
+  border:1px solid #527ec3;
+  background:rgba(39,78,138,.16);
+  color:white;border-radius:50px;
+  font-size:13px;letter-spacing:1px;
+  min-height:48px;animation:fadeIn 2s ease both;
+  transition:.3s
+}
+
+.enter-btn:hover{background:#315b9b;transform:translateY(-3px)}
+
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+/* NAV */
+
+nav{
+  height:76px;padding:0 7%;
+  display:flex;align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  position:sticky;top:0;z-index:30;
+  background:rgba(8,11,18,.88);
+  backdrop-filter:blur(18px)
+}
+
+.brand{
+  font-family:'Space Grotesk';
+  font-size:23px;font-weight:700;letter-spacing:-1px
+}
+
+.brand span{color:var(--blue)}
+
+.nav-links{display:flex;gap:30px}
+
+.nav-links a{
+  color:#b6c0d0;text-decoration:none;
+  font-size:13px;transition:.2s
+}
+
+.nav-links a:hover{color:white}
+
+.nav-status{
+  font-size:11px;color:#9fcbad;
+  display:flex;align-items:center;gap:7px
+}
+
+.status-dot{
+  width:7px;height:7px;background:#73d99b;
+  border-radius:50%;box-shadow:0 0 10px #73d99b
+}
+
+/* HERO */
+
+.hero{
+  min-height:570px;padding:115px 8% 100px;
+  display:flex;flex-direction:column;justify-content:center
+}
+
+.eyebrow{
+  color:var(--blue);font-size:11px;
+  letter-spacing:4px;text-transform:uppercase;
+  margin-bottom:24px
+}
+
+.hero h1{
+  font-family:'Space Grotesk';
+  font-size:clamp(48px,8vw,92px);
+  line-height:1.03;letter-spacing:-5px;
+  max-width:850px
+}
+
+.hero h1 span{color:#7eaaff}
+
+.hero p{
+  color:var(--muted);max-width:480px;
+  line-height:1.8;margin-top:25px;font-size:15px
+}
+
+.hero-actions{
+  display:flex;gap:14px;margin-top:35px;flex-wrap:wrap
+}
+
+.primary-btn,.secondary-btn{
+  padding:14px 23px;border-radius:8px;
+  text-decoration:none;font-size:13px;
+  min-height:48px;display:inline-flex;
+  align-items:center;justify-content:center;
+  transition:.25s
+}
+
+.primary-btn{background:#eaf1ff;color:#101827;font-weight:700}
+
+.secondary-btn{
+  border:1px solid #587db6;color:white;
+  background:#17243a
+}
+
+.primary-btn:hover,.secondary-btn:hover{
+  transform:translateY(-3px)
+}
+
+/* PROJECTS */
+
+.section{padding:65px 8% 100px}
+
+.section-heading{
+  display:flex;justify-content:space-between;
+  align-items:end;gap:20px;margin-bottom:35px
+}
+
+.section-heading h2{
+  font-family:'Space Grotesk';
+  font-size:clamp(30px,5vw,45px);
+  letter-spacing:-2px
+}
+
+.section-heading p{
+  color:var(--muted);font-size:13px;margin-top:8px
+}
+
+.project-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px
+}
+
+.project-card{
+  min-height:265px;
+  background:linear-gradient(145deg,#131e30,#0c121d);
+  border:1px solid rgba(150,180,230,.13);
+  border-radius:17px;padding:27px;
+  position:relative;overflow:hidden;
+  transition:.35s;text-align:left;
+  color:white;width:100%
+}
+
+.project-card:hover{
+  transform:translateY(-7px);
+  border-color:#6598eb;
+  background:linear-gradient(145deg,#192a43,#0d1522)
+}
+
+.card-icon{
+  font-size:36px;margin-bottom:36px;display:block
+}
+
+.project-card h3{
+  font-family:'Space Grotesk';
+  font-size:23px;margin-bottom:9px
+}
+
+.project-card p{
+  color:#9caabe;font-size:13px;
+  line-height:1.6;max-width:250px
+}
+
+.card-arrow{
+  position:absolute;right:25px;bottom:25px;
+  font-size:22px;color:#8eb6ff
+}
+
+/* MUSIC FEATURE */
+
+.music-feature{
+  margin:0 8% 100px;
+  border:1px solid rgba(120,160,220,.2);
+  background:linear-gradient(110deg,#14233a,#0b111c 75%);
+  border-radius:20px;padding:45px;
+  display:flex;justify-content:space-between;
+  align-items:center;gap:25px;overflow:hidden
+}
+
+.music-feature h2{
+  font-family:'Space Grotesk';
+  font-size:clamp(28px,5vw,42px);
+  margin:12px 0
+}
+
+.music-feature p{
+  color:var(--muted);font-size:14px
+}
+
+.music-art{
+  font-size:85px;color:#7daaff;
+  text-shadow:0 0 40px #477edb;
+  animation:musicFloat 3s ease-in-out infinite
+}
+
+@keyframes musicFloat{
+  50%{transform:translateY(-12px) rotate(8deg)}
+}
+
+/* ABOUT */
+
+.about{padding:0 8% 100px}
+
+.about h2{
+  font-family:'Space Grotesk';
+  font-size:35px;margin-bottom:15px
+}
+
+.about p{
+  color:var(--muted);line-height:1.8;
+  max-width:650px;font-size:14px
+}
+
+.contact-info{
+  margin-top:30px;padding:23px;
+  max-width:440px;
+  background:linear-gradient(120deg,#14233a,#0d1420);
+  border:1px solid rgba(120,160,220,.2);
+  border-radius:13px
+}
+
+.contact-info h3{
+  font-family:'Space Grotesk';
+  font-size:21px;margin-bottom:8px
+}
+
+.contact-info p{margin-bottom:14px}
+
+.contact-info a{
+  color:#9fc1ff;text-decoration:none;
+  font-size:14px;font-weight:600;
+  overflow-wrap:anywhere
+}
+
+.contact-info a:hover{color:white}
+
+/* FOOTER */
+
+footer{
+  padding:30px 8%;
+  border-top:1px solid rgba(255,255,255,.08);
+  color:#77859a;display:flex;
+  justify-content:space-between;gap:15px;
+  font-size:12px
+}
+
+/* DETAILS */
+
+#details{
+  display:none;min-height:75vh;
+  padding:35px 8% 90px;
+  animation:pageIn .4s ease
+}
+
+#details.active{display:block}
+
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.back-bar{
+  position:sticky;top:76px;z-index:25;
+  padding:14px 0;background:rgba(8,11,18,.95);
+  backdrop-filter:blur(15px)
+}
+
+.back-btn{
+  border:1px solid #587db6;background:#17243a;
+  color:white;border-radius:9px;
+  padding:13px 19px;min-height:48px;
+  font-size:13px;font-weight:700;
+  display:inline-flex;align-items:center;
+  gap:10px;transition:.25s;
+  box-shadow:0 4px 20px rgba(0,0,0,.2)
+}
+
+.back-btn:hover{
+  background:#294773;transform:translateX(-3px)
+}
+
+.detail-heading{margin-top:35px;margin-bottom:35px}
+
+.detail-heading .eyebrow{margin-bottom:14px}
+
+.detail-heading h1{
+  font-family:'Space Grotesk';
+  font-size:clamp(38px,7vw,65px);
+  letter-spacing:-3px
+}
+
+.detail-heading p{
+  color:var(--muted);margin-top:13px;line-height:1.7
+}
+
+.sound-credit{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  margin-top:22px;padding:16px 18px;max-width:620px;
+  border:1px solid rgba(159,193,255,.28);
+  border-left:3px solid #9fc1ff;border-radius:12px;
+  background:linear-gradient(110deg,rgba(37,57,88,.62),rgba(17,26,40,.72))
+}
+.sound-credit-mark{font-size:22px}
+.sound-credit-label{display:block;color:#9fc1ff;font-size:9px;
+  letter-spacing:2px;font-weight:800;margin-bottom:5px}
+.sound-credit strong{display:block;font-size:14px;letter-spacing:.2px}
+.sound-credit small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+
+.detail-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:18px
+}
+
+.detail-card{
+  background:#111a28;
+  border:1px solid #25364d;
+  padding:23px;border-radius:14px;
+  min-height:160px;transition:.3s;
+  overflow:hidden
+}
+
+.detail-card:hover{
+  border-color:#6598eb;
+  transform:translateY(-4px)
+}
+
+.detail-thumb{
+  display:block;width:100%;aspect-ratio:16/9;
+  object-fit:cover;border-radius:10px;
+  margin-bottom:18px;background:#0b111c;
+  border:1px solid rgba(150,180,230,.13)
+}
+.detail-symbol{font-size:27px;margin-bottom:20px}
+
+.detail-card h3{font-size:17px;margin-bottom:8px}
+
+.detail-card p{
+  color:var(--muted);font-size:13px;line-height:1.6
+}
+
+.detail-status{
+  display:inline-block;font-size:10px;
+  letter-spacing:1px;color:#9fc1ff;
+  border:1px solid #395783;
+  padding:5px 9px;border-radius:30px;
+  margin-top:13px
+}
+
+.detail-status.released{
+  color:#8de2ad;border-color:#32694a
+}
+
+.detail-status.coming{
+  color:#f1c77c;border-color:#745c31
+}
+
+/* SERIES / EPISODE ACTIONS */
+
+.card-action{
+  display:flex;flex-wrap:wrap;gap:9px;
+  margin-top:17px
+}
+
+.watch-btn{
+  display:inline-flex;align-items:center;
+  justify-content:center;gap:7px;
+  padding:10px 13px;min-height:42px;
+  border-radius:8px;text-decoration:none;
+  font-size:11px;font-weight:700;
+  letter-spacing:.3px;transition:.25s
+}
+
+.youtube-btn{
+  color:#fff;background:#b91c2b;
+  border:1px solid #d23a49
+}
+
+.instagram-btn{
+  color:#fff;
+  background:linear-gradient(120deg,#833ab4,#c13584,#e6683c);
+  border:1px solid rgba(255,255,255,.16)
+}
+
+.watch-btn:hover{transform:translateY(-3px);filter:brightness(1.15)}
+
+/* UPCOMING MUSIC PLATFORMS */
+.platform-soon-row{
+  display:flex;flex-wrap:wrap;gap:9px;margin-top:16px
+}
+.platform-soon{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  min-height:40px;padding:9px 12px;border-radius:8px;
+  color:#cbd5e4;background:#182235;
+  border:1px solid #394b66;font-size:10px;font-weight:800;
+  letter-spacing:.45px;opacity:.9
+}
+.platform-soon small{
+  color:#f1c77c;font-size:9px;letter-spacing:.5px
+}
+
+.folder-open-btn{
+  margin-top:16px;width:100%;
+  padding:11px;border-radius:8px;
+  border:1px solid #527ec3;
+  background:#192a43;color:white;
+  font-size:12px;font-weight:700;
+  min-height:44px;transition:.25s
+}
+
+.folder-open-btn:hover{background:#294773}
+
+/* CLICK EFFECT */
+
+.burst{
+  position:fixed;pointer-events:none;
+  z-index:200;color:#a3c7ff;
+  font-size:20px;animation:burst .8s ease-out forwards
+}
+
+@keyframes burst{
+  to{
+    transform:translate(var(--x),var(--y)) rotate(35deg) scale(.2);
+    opacity:0
+  }
+}
+
+/* TABLET */
+
+@media(max-width:850px){
+  .detail-grid{grid-template-columns:repeat(2,1fr)}
+  .hero{min-height:500px}
+  .music-feature{padding:32px}
+}
+
+/* PHONE */
+
+@media(max-width:600px){
+  nav{height:64px;padding:0 5%}
+  .brand{font-size:21px}
+  .nav-links{display:none}
+  .nav-status{font-size:10px}
+
+  .hero{min-height:auto;padding:95px 6% 80px}
+  .hero h1{
+    font-size:clamp(47px,13vw,65px);
+    letter-spacing:-3px
+  }
+  .hero p{font-size:14px}
+
+  .section{padding:45px 6% 65px}
+  .section-heading{
+    align-items:start;flex-direction:column
+  }
+
+  .project-grid,.detail-grid{
+    grid-template-columns:1fr;gap:14px
+  }
+
+  .project-card{min-height:210px;padding:23px}
+  .card-icon{margin-bottom:25px}
+
+  .music-feature{
+    margin:0 6% 75px;padding:27px 22px;
+    flex-direction:column;align-items:flex-start
+  }
+
+  .music-art{font-size:55px;align-self:flex-end}
+  .about{padding:0 6% 70px}
+  footer{padding:25px 6%;flex-direction:column}
+
+  #details{padding:15px 6% 65px}
+  .back-bar{top:64px;padding:12px 0}
+  .back-btn{
+    width:100%;justify-content:center;
+    font-size:14px;min-height:52px
+  }
+
+  .detail-heading{margin-top:28px}
+  .detail-heading h1{font-size:43px}
+  .intro-sub{letter-spacing:4px;font-size:9px}
+}
+
+@media(hover:none){
+  .project-card:hover{transform:none}
+}
+
+/* COMING SOON POPUP */
+.soon-card{cursor:pointer;position:relative}
+.soon-card:focus-visible{outline:2px solid #9fc1ff;outline-offset:3px}
+.soon-overlay{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:22px;background:rgba(3,7,14,.76);backdrop-filter:blur(9px);opacity:0;visibility:hidden;transition:opacity .32s ease,visibility .32s ease}
+.soon-overlay.show{opacity:1;visibility:visible}
+.soon-modal{width:min(100%,390px);position:relative;overflow:hidden;text-align:center;padding:34px 26px 28px;border-radius:22px;background:linear-gradient(145deg,#17263d,#0b1220 72%);border:1px solid rgba(159,193,255,.35);box-shadow:0 24px 90px rgba(0,0,0,.5);transform:translateY(22px) scale(.94);transition:transform .42s cubic-bezier(.2,.8,.2,1)}
+.soon-overlay.show .soon-modal{transform:translateY(0) scale(1)}
+.soon-modal:before{content:"";position:absolute;width:220px;height:220px;left:50%;top:-155px;transform:translateX(-50%);border-radius:50%;background:rgba(112,159,235,.22);filter:blur(12px)}
+.soon-icon{position:relative;margin:0 auto 17px;width:66px;height:66px;display:grid;place-items:center;border-radius:20px;background:linear-gradient(145deg,#29466f,#172943);border:1px solid #5478aa;color:#c7dcff;font-size:29px;animation:soonFloat 2.8s ease-in-out infinite}
+.soon-kicker{color:#9fc1ff;font-size:10px;letter-spacing:3px;font-weight:800}
+.soon-modal h2{position:relative;margin:10px 0 9px;font-size:25px;letter-spacing:1px;color:#fff}
+.soon-modal p{position:relative;margin:0 auto;color:#aebbd0;font-size:13px;line-height:1.7;max-width:285px}
+.soon-line{height:3px;width:76px;margin:22px auto 20px;border-radius:5px;background:linear-gradient(90deg,transparent,#9fc1ff,transparent);animation:soonGlow 2s ease-in-out infinite}
+.soon-close{position:relative;min-height:43px;padding:0 24px;border:1px solid #5478aa;border-radius:10px;background:#203653;color:white;font-weight:700;letter-spacing:.5px;cursor:pointer}
+.soon-close:hover{background:#2c4a73}
+@keyframes soonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes soonGlow{0%,100%{opacity:.45;transform:scaleX(.8)}50%{opacity:1;transform:scaleX(1.2)}}
+@media(prefers-reduced-motion:reduce){.soon-overlay,.soon-modal,.soon-icon,.soon-line{animation:none!important;transition:none!important}}
+</style>
+</head>
+
+<body>
+
+<div class="background-glow"></div>
+<div id="notes"></div>
+
+<!-- INTRO -->
+
+<div id="intro">
+  <div class="intro-grid"></div>
+  <div class="intro-logo">R4J MUSIC</div>
+  <div class="intro-sub">MUSIC • FILMS • CREATION</div>
+  <button class="enter-btn" onclick="enterWebsite()">
+    ENTER EXPERIENCE ↗
+  </button>
+</div>
+
+<!-- NAVBAR -->
+
+<nav>
+  <div class="brand">R4J<span>MUSIC</span></div>
+
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="#music">Music</a>
+    <a href="#about">About</a>
+  </div>
+
+  <div class="nav-status">
+    <span class="status-dot"></span> CREATIVE MODE
+  </div>
+</nav>
+
+<main id="website">
+
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+    <div class="eyebrow">INDEPENDENT CREATIVE SPACE</div>
+
+    <h1>Creating<br>beyond <span>limits.</span></h1>
+
+    <p>
+      A creative universe of music, short films and ideas.
+      Welcome to the world of R4J.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="primary-btn">Explore Projects ↗</a>
+      <a href="#about" class="secondary-btn">About Me</a>
+    </div>
+  </section>
+
+  <!-- MAIN FOLDERS -->
+
+  <section class="section" id="projects">
+
+    <div class="section-heading">
+      <div>
+        <div class="eyebrow">THE COLLECTION</div>
+        <h2>Explore my universe.</h2>
+        <p>Choose a folder to explore the projects.</p>
+      </div>
+    </div>
+
+    <div class="project-grid">
+
+      <button class="project-card" onclick="openFolder('films')">
+        <span class="card-icon">🎬</span>
+        <h3>Short Films</h3>
+        <p>Stories, visuals and cinematic experiments.</p>
+        <span class="card-arrow">↗</span>
+      </button>
+
+      <button class="project-card" onclick="openFolder('music')">
+        <span class="card-icon">🎵</span>
+        <h3>Music</h3>
+        <p>Original sounds, releases and musical journeys.</p>
+        <span class="card-arrow">↗</span>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- MUSIC BANNER -->
+
+  <section class="music-feature" id="music">
+    <div>
+      <div class="eyebrow">SOMETHING IS COMING</div>
+      <h2>New music. New emotions.</h2>
+      <p>Stay tuned for the next musical experience.</p>
+
+      <button class="secondary-btn"
+        style="margin-top:23px;min-width:125px"
+        onclick="openFolder('music')">
+        CLICK ↗
+      </button>
+    </div>
+
+    <div class="music-art">♫</div>
+  </section>
+
+  <!-- ABOUT -->
+
+  <section class="about" id="about">
+
+    <div class="eyebrow">BEHIND R4J MUSIC</div>
+
+    <h2>Ideas into experiences.</h2>
+
+    <p>
+      R4J is a creative space focused on music, filmmaking
+      and digital creativity. A place where every idea gets
+      its own identity and every project tells a story.
+    </p>
+
+    <div class="contact-info">
+      <h3>Let's Connect.</h3>
+      <p>For contact, projects & collaborations:</p>
+
+      <a href="mailto:r4jproduction@gmail.com">
+        ✉ r4jproduction@gmail.com ↗
+      </a>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- FOLDER DETAILS -->
+
+<section id="details">
+
+  <div class="back-bar">
+    <button class="back-btn" onclick="goBack()">
+      <span>←</span> BACK TO PROJECTS
+    </button>
+  </div>
+
+  <div class="detail-heading">
+    <div class="eyebrow" id="detailEyebrow">PROJECT FOLDER</div>
+    <h1 id="detailTitle">Short Films</h1>
+    <p id="detailDescription">Explore the collection.</p>
+  </div>
+
+  <div class="detail-grid" id="detailGrid"></div>
+
+</section>
+
+<footer>
+  <div>© 2026 R4J Music. All rights reserved.</div>
+  <div>MADE WITH CREATIVITY ✦</div>
+</footer>
+
+<script>
+
+/* =====================================
+   PROJECT DATA
+   Add future short films in this section.
+===================================== */
+
+const folderData = {
+
+  films: {
+    eyebrow:"CINEMATIC COLLECTION",
+    title:"Short Films",
+    description:"Every story has a world of its own.",
+
+    items:[
+
+      {
+        type:"folder",
+        key:"pari",
+        icon:"🎬",
+        thumbnail:"images/pari-ep1.png",
+        title:"Pari",
+        description:"A short film series. Episodes 01–08.",
+        status:"2 EPISODES RELEASED"
+      }
+
+      /*
+        FUTURE SHORT FILM EXAMPLE:
+
+        Add another object here:
+
+        {
+          type:"folder",
+          key:"newFilm",
+          icon:"🎥",
+          title:"Your New Film",
+          description:"Your new short film series.",
+          status:"COMING SOON"
+        }
+
+        Then create its episode list in filmSeries below.
+      */
+
+    ]
+  },
+
+  music: {
+    eyebrow:"SOUND COLLECTION",
+    title:"Music",
+    description:"Sounds, stories and emotions.",
+
+    items:[
+      {
+        type:"item",
+        icon:"♫",
+        thumbnail:"images/door-khadi-hai-kyun.jpg",
+        title:"Door Khadi Hai Kyun",
+        description:"A new original track by R4J Music.",
+        status:"COMING SOON",
+        platforms:["SPOTIFY","YOUTUBE"]
+      },
+      {
+        type:"item",
+        icon:"🎧",
+        title:"More Music",
+        description:"More original music and upcoming releases.",
+        status:"COMING SOON"
+      }
+    ]
+  }
+
+};
+
+
+/* =====================================
+   SHORT FILM SERIES / EPISODES
+
+   Add future series here.
+===================================== */
+
+const filmSeries = {
+
+  pari: {
+
+    eyebrow:"SHORT FILM SERIES",
+    title:"Pari",
+    description:"A story told across 8 episodes.",
+    credit:{
+      name:"R4J MUSIC",
+      role:"BACKGROUND MUSIC & SOUND DESIGN",
+      note:"The sound and atmosphere of this series — created by R4J."
+    },
+
+    episodes:[
+
+      {
+        icon:"🎬",
+        title:"EP 01",
+        description:"Pari — Episode 01",
+        thumbnail:"images/pari-ep1.png",
+        status:"RELEASED",
+
+        youtube:"https://youtube.com/shorts/SJepuilfK4U?si=Dh42WhtAYibayA6Q",
+
+        instagram:"https://www.instagram.com/reel/DfpH16lu0kj/?psln=MXVpbmxvMnJvNXBqMA=="
+      },
+
+      {
+        icon:"🎬",
+        title:"EP 02",
+        description:"Pari — Episode 02",
+        thumbnail:"images/pari-ep2.png",
+        status:"RELEASED",
+
+        youtube:"https://youtube.com/shorts/cYAUgsgxurM?si=rdZXxwiUdaWYNCUX",
+
+        instagram:"https://www.instagram.com/reel/DfuUWI9NCLG/?vrfl=NHUxOHB3YThrbTRq"
+      },
+
+      {
+        icon:"🎬",
+        title:"EP 03",
+        description:"The next episode of Pari.",
+        status:"COMING SOON"
+      },
+
+      {
+        icon:"🎬",
+        title:"EP 04",
+        description:"The next episode of Pari.",
+        status:"COMING SOON"
+      },
+
+      {
+        icon:"🎬",
+        title:"EP 05",
+        description:"The next episode of Pari.",
+        status:"COMING SOON"
+      },
+
+      {
+        icon:"🎬",
+        title:"EP 06",
+        description:"The next episode of Pari.",
+        status:"COMING SOON"
+      },
+
+      {
+        icon:"🎬",
+        title:"EP 07",
+        description:"The next episode of Pari.",
+        status:"COMING SOON"
+      },
+
+      {
+        icon:"🎬",
+        title:"EP 08",
+        description:"The final episode of Pari.",
+        status:"COMING SOON"
+      }
+
+    ]
+  }
+
+  /*
+    FUTURE FILM EXAMPLE:
+
+    Add another series like this:
+
+    ,
+    newFilm: {
+      eyebrow:"SHORT FILM SERIES",
+      title:"Your New Film",
+      description:"Your film description.",
+
+      episodes:[
+        {
+          icon:"🎬",
+          title:"EP 01",
+          description:"Episode description",
+          status:"RELEASED",
+          youtube:"YOUR YOUTUBE LINK",
+          instagram:"YOUR INSTAGRAM LINK"
+        },
+        {
+          icon:"🎬",
+          title:"EP 02",
+          description:"Episode description",
+          status:"COMING SOON"
+        }
+      ]
+    }
+
+    Also add its folder entry in folderData.films.items.
+  */
+
+};
+
+
+/* INTRO */
+
+function enterWebsite(){
+
+  document.getElementById("intro").classList.add("hide");
+
+  setTimeout(()=>{
+    document.getElementById("intro").style.display="none";
+  },850);
+
+}
+
+window.addEventListener("load",()=>{
+
+  setTimeout(()=>{
+
+    const intro=document.getElementById("intro");
+
+    if(intro && !intro.classList.contains("hide")){
+      enterWebsite();
+    }
+
+  },4500);
+
+});
+
+
+/* PAGE ELEMENTS */
+
+const website=document.getElementById("website");
+const details=document.getElementById("details");
+const detailGrid=document.getElementById("detailGrid");
+
+/* SMOOTH COMING SOON POPUP */
+function showComingSoon(label){
+  let overlay=document.getElementById("comingSoonOverlay");
+  if(!overlay){
+    overlay=document.createElement("div");
+    overlay.id="comingSoonOverlay";
+    overlay.className="soon-overlay";
+    overlay.innerHTML='<div class="soon-modal" role="dialog" aria-modal="true" aria-labelledby="soonTitle"><div class="soon-icon">♫</div><div class="soon-kicker">A LITTLE MORE PATIENCE</div><h2 id="soonTitle">COMING SOON</h2><p id="soonMessage">Something special is in the making. Stay tuned!</p><div class="soon-line"></div><button class="soon-close" type="button">GOT IT</button></div>';
+    document.body.appendChild(overlay);
+    overlay.addEventListener("click",e=>{if(e.target===overlay) closeComingSoon();});
+    overlay.querySelector(".soon-close").addEventListener("click",closeComingSoon);
+  }
+  overlay.querySelector("#soonMessage").textContent=label ? label+" is not released yet. Stay tuned — it's coming soon!" : "Something special is in the making. Stay tuned!";
+  overlay.classList.add("show");
+}
+function closeComingSoon(){
+  const overlay=document.getElementById("comingSoonOverlay");
+  if(overlay) overlay.classList.remove("show");
+}
+
+
+let currentView="home";
+let previousView="home";
+/* SHOW DETAIL PAGE */
+
+function showDetails(data, viewType){
+
+  document.getElementById("detailEyebrow").textContent = data.eyebrow;
+
+  document.getElementById("detailTitle").textContent = data.title;
+
+  document.getElementById("detailDescription").textContent = data.description;
+
+  const heading = document.querySelector(".detail-heading");
+  const oldCredit = heading.querySelector(".sound-credit");
+  if(oldCredit) oldCredit.remove();
+
+  if(data.credit){
+    const credit = document.createElement("div");
+    credit.className = "sound-credit";
+    credit.innerHTML = '<span class="sound-credit-mark">♫</span><span><small class="sound-credit-label">BEHIND THE SOUND</small><strong></strong><small></small></span>';
+    credit.querySelector("strong").textContent = data.credit.role + " · " + data.credit.name;
+    credit.querySelectorAll("small")[1].textContent = data.credit.note;
+    heading.appendChild(credit);
+  }
+
+  detailGrid.innerHTML = "";
+
+  website.style.display = "none";
+  details.style.display = "block";
+
+  details.classList.remove("active");
+  void details.offsetWidth;
+  details.classList.add("active");
+
+  currentView = viewType;
+
+  window.scrollTo({top:0, behavior:"instant"});
+
+}
+
+
+/* OPEN MAIN FOLDER */
+
+function openFolder(folder){
+
+  const data = folderData[folder];
+  if(!data) return;
+
+  previousView = "home";
+
+  showDetails(data, "folder:" + folder);
+
+  data.items.forEach(item => {
+
+    const card = document.createElement("div");
+    card.className = "detail-card";
+
+    if(item.thumbnail){
+      const thumbnail = document.createElement("img");
+      thumbnail.className = "detail-thumb";
+      thumbnail.src = item.thumbnail;
+      thumbnail.alt = item.title + " thumbnail";
+      thumbnail.loading = "lazy";
+      card.appendChild(thumbnail);
+    }
+
+    const symbol = document.createElement("div");
+    symbol.className = "detail-symbol";
+    symbol.textContent = item.icon;
+
+    const heading = document.createElement("h3");
+    heading.textContent = item.title;
+
+    const description = document.createElement("p");
+    description.textContent = item.description;
+
+    const status = document.createElement("span");
+    status.className = "detail-status";
+    status.textContent = item.status;
+
+    if(item.type === "folder"){
+
+      const openButton = document.createElement("button");
+      openButton.className = "folder-open-btn";
+      openButton.textContent = "OPEN SERIES ↗";
+
+      openButton.addEventListener("click", () => {
+        openSeries(item.key);
+      });
+
+      card.append(symbol, heading, description, status, openButton);
+
+    }else{
+
+      card.append(symbol, heading, description, status);
+      if(item.status === "COMING SOON"){
+        card.classList.add("soon-card");
+        card.setAttribute("role","button");
+        card.setAttribute("tabindex","0");
+        card.setAttribute("aria-label",item.title + " coming soon");
+        card.addEventListener("click",()=>showComingSoon(item.title));
+        card.addEventListener("keydown",event=>{if(event.key === "Enter" || event.key === " "){event.preventDefault();showComingSoon(item.title);}});
+      }
+
+      if(item.platforms && item.platforms.length){
+        const platformRow = document.createElement("div");
+        platformRow.className = "platform-soon-row";
+
+        item.platforms.forEach(platform => {
+          const platformLabel = document.createElement("span");
+          platformLabel.className = "platform-soon";
+          platformLabel.setAttribute("aria-label", platform + " coming soon");
+
+          const platformName = document.createElement("span");
+          platformName.textContent = platform === "SPOTIFY" ? "♫  SPOTIFY" : "▶  YOUTUBE";
+
+          const comingSoon = document.createElement("small");
+          comingSoon.textContent = "COMING SOON";
+
+          platformLabel.append(platformName, comingSoon);
+          platformRow.appendChild(platformLabel);
+        });
+
+        card.appendChild(platformRow);
+      }
+
+    }
+
+    detailGrid.appendChild(card);
+
+  });
+
+}
+
+
+/* OPEN SHORT FILM SERIES */
+
+function openSeries(seriesKey){
+
+  const series = filmSeries[seriesKey];
+  if(!series) return;
+
+  previousView = currentView;
+
+  showDetails(series, "series:" + seriesKey);
+
+  series.episodes.forEach(episode => {
+
+    const card = document.createElement("div");
+    card.className = "detail-card";
+
+    if(episode.thumbnail){
+      const thumbnail = document.createElement("img");
+      thumbnail.className = "detail-thumb";
+      thumbnail.src = episode.thumbnail;
+      thumbnail.alt = episode.title + " thumbnail";
+      thumbnail.loading = "lazy";
+      card.appendChild(thumbnail);
+    }
+
+    const symbol = document.createElement("div");
+    symbol.className = "detail-symbol";
+    symbol.textContent = episode.icon || "🎬";
+
+    const heading = document.createElement("h3");
+    heading.textContent = episode.title;
+
+    const description = document.createElement("p");
+    description.textContent = episode.description;
+
+    const status = document.createElement("span");
+    status.className = "detail-status";
+    status.textContent = episode.status;
+
+    if(episode.status === "RELEASED"){
+      status.classList.add("released");
+    }else{
+      status.classList.add("coming");
+    }
+
+    card.append(symbol, heading, description, status);
+
+    if(episode.status !== "RELEASED"){
+      card.classList.add("soon-card");
+      card.setAttribute("role","button");
+      card.setAttribute("tabindex","0");
+      card.setAttribute("aria-label",episode.title + " coming soon");
+      card.addEventListener("click",()=>showComingSoon(episode.title));
+      card.addEventListener("keydown",event=>{if(event.key === "Enter" || event.key === " "){event.preventDefault();showComingSoon(episode.title);}});
+    }
+
+    if(episode.status === "RELEASED"){
+
+      const actions = document.createElement("div");
+      actions.className = "card-action";
+
+      if(episode.youtube){
+
+        const youtubeButton = document.createElement("a");
+
+        youtubeButton.className = "watch-btn youtube-btn";
+        youtubeButton.href = episode.youtube;
+        youtubeButton.target = "_blank";
+        youtubeButton.rel = "noopener noreferrer";
+        youtubeButton.textContent = "▶ YOUTUBE";
+
+        actions.appendChild(youtubeButton);
+
+      }
+
+      if(episode.instagram){
+
+        const instaButton = document.createElement("a");
+
+        instaButton.className = "watch-btn instagram-btn";
+        instaButton.href = episode.instagram;
+        instaButton.target = "_blank";
+        instaButton.rel = "noopener noreferrer";
+        instaButton.textContent = "◎ INSTAGRAM";
+
+        actions.appendChild(instaButton);
+
+      }
+
+      card.appendChild(actions);
+
+    }
+
+    detailGrid.appendChild(card);
+
+  });
+
+}
+
+
+/* BACK BUTTON */
+
+function goBack(){
+
+  if(currentView.startsWith("series:")){
+
+    const folderKey = previousView.replace("folder:", "");
+
+    openFolder(folderKey);
+    return;
+
+  }
+
+  details.classList.remove("active");
+  details.style.display = "none";
+
+  website.style.display = "block";
+
+  currentView = "home";
+
+  window.scrollTo({top:0, behavior:"instant"});
+
+}
+
+
+/* FLOATING MUSIC NOTES */
+
+const noteSymbols = ["♪","♫","♬","♩","🎵"];
+const noteContainer = document.getElementById("notes");
+
+for(let i = 0; i < 15; i++){
+
+  const note = document.createElement("div");
+
+  note.className = "note";
+
+  note.textContent = noteSymbols[
+    Math.floor(Math.random() * noteSymbols.length)
+  ];
+
+  note.style.left = Math.random() * 100 + "%";
+  note.style.animationDuration = (12 + Math.random() * 18) + "s";
+  note.style.animationDelay = (Math.random() * 15) + "s";
+  note.style.fontSize = (15 + Math.random() * 18) + "px";
+
+  noteContainer.appendChild(note);
+
+}
+
+
+/* CLICK NOTE BURST */
+
+document.addEventListener("click", function(event){
+
+  for(let i = 0; i < 5; i++){
+
+    const note = document.createElement("span");
+
+    note.className = "burst";
+
+    note.textContent = noteSymbols[
+      Math.floor(Math.random() * noteSymbols.length)
+    ];
+
+    note.style.left = event.clientX + "px";
+    note.style.top = event.clientY + "px";
+
+    note.style.setProperty(
+      "--x", (Math.random() * 100 - 50) + "px"
+    );
+
+    note.style.setProperty(
+      "--y", (Math.random() * 100 - 50) + "px"
+    );
+
+    document.body.appendChild(note);
+
+    setTimeout(() => note.remove(), 850);
+
+  }
+
+});
+
+
+/* ESC KEY TO GO BACK */
+
+document.addEventListener("keydown", function(event){
+
+  if(event.key === "Escape"){
+    const popup=document.getElementById("comingSoonOverlay");
+    if(popup && popup.classList.contains("show")){closeComingSoon();return;}
+    if(details.style.display === "block") goBack();
+  }
+
+});
+</script>
+
+</body> </html>
+
+
+
+
