@@ -286,6 +286,14 @@ nav{
 @keyframes musicFloat{
   50%{transform:translateY(-12px) rotate(8deg)}
 }
+.pinned-release{align-items:center;gap:34px}
+.pinned-copy{flex:1;min-width:0}
+.pinned-copy .primary-btn{margin-top:22px}
+.pinned-note{margin-top:13px;color:#9ba8ba;font-size:11px;letter-spacing:.5px}
+.pinned-art-link{display:block;flex:1.15;max-width:570px;min-width:0}
+.pinned-art{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:13px;border:1px solid rgba(159,193,255,.25);box-shadow:0 18px 45px rgba(0,0,0,.32)}
+@media(max-width:600px){.pinned-release{gap:22px}.pinned-art-link{width:100%;max-width:none}.pinned-copy{width:100%}}
+
 
 /* ABOUT */
 
@@ -679,22 +687,18 @@ footer{
     </div>
   </section>
 
-  <!-- MUSIC BANNER -->
-
-  <section class="music-feature" id="music">
-    <div>
-      <div class="eyebrow">SOMETHING IS COMING</div>
-      <h2>New music. New emotions.</h2>
-      <p>Stay tuned for the next musical experience.</p>
-
-      <button class="secondary-btn"
-        style="margin-top:23px;min-width:125px"
-        onclick="openFolder('music')">
-        CLICK ↗
-      </button>
+  <!-- PINNED RELEASE -->
+  <section class="music-feature pinned-release" id="music">
+    <div class="pinned-copy">
+      <div class="eyebrow">FEATURED RELEASE · OUT NOW</div>
+      <h2>Door Khadi Hai Kyun</h2>
+      <p>R4J Music × Omkar Music</p>
+      <a class="primary-btn" href="https://youtu.be/mK_urGwjC1w?si=4orI2EhZc8iprFT4" target="_blank" rel="noopener noreferrer">▶ WATCH ON YOUTUBE</a>
+      <div class="pinned-note">Now streaming on YouTube</div>
     </div>
-
-    <div class="music-art">♫</div>
+    <a class="pinned-art-link" href="https://youtu.be/mK_urGwjC1w?si=4orI2EhZc8iprFT4" target="_blank" rel="noopener noreferrer" aria-label="Watch Door Khadi Hai Kyun">
+      <img class="pinned-art" src="images/door-khadi-hai-kyun.png" alt="Door Khadi Hai Kyun — R4J Music × Omkar Music">
+    </a>
   </section>
 
   <!-- ABOUT -->
@@ -772,7 +776,7 @@ const folderData = {
         thumbnail:"images/pari-ep1.png",
         title:"Pari",
         description:"A short film series. Episodes 01–08.",
-        status:"3 EPISODES RELEASED"
+        status:"2 EPISODES RELEASED"
       }
 
       /*
@@ -806,9 +810,9 @@ const folderData = {
         icon:"♫",
         thumbnail:"images/door-khadi-hai-kyun.jpg",
         title:"Door Khadi Hai Kyun",
-        description:"A new original track by R4J Music.",
-        status:"COMING SOON",
-        platforms:["SPOTIFY","YOUTUBE"]
+        description:"An original release by R4J Music × Omkar Music.",
+        status:"OUT NOW",
+        youtube:"https://youtu.be/mK_urGwjC1w?si=4orI2EhZc8iprFT4"
       },
       {
         type:"item",
@@ -871,32 +875,35 @@ const filmSeries = {
       {
         icon:"🎬",
         title:"EP 03",
-        description:"Pari — Episode 03",
-        thumbnail:"images/pari-ep3.png",
-        status:"RELEASED",
-
-        instagram:"https://www.instagram.com/reel/Df2CsAPtccT/?rpxt=YXFhajRmOXRkOHQw"
+        description:"The next episode of Pari.",
+        status:"COMING SOON"
       },
 
       {
         icon:"🎬",
         title:"EP 04",
-        description:"The next episode of Pari.",
-        status:"COMING SOON"
+        description:"Pari — Episode 04",
+        thumbnail:"images/pari-ep4.png",
+        status:"RELEASED",
+        instagram:"https://www.instagram.com/reel/Df7MUMytZR9/?bqrl=MmgzOHhvaDBxM256"
       },
 
       {
         icon:"🎬",
         title:"EP 05",
-        description:"The next episode of Pari.",
-        status:"COMING SOON"
+        description:"Pari — Episode 05",
+        thumbnail:"images/pari-ep5.png",
+        status:"RELEASED",
+        instagram:"https://www.instagram.com/reel/DgC6mGjORLE/?knvt=MTRrMTBqZGpnNXBrbQ=="
       },
 
       {
         icon:"🎬",
         title:"EP 06",
-        description:"The next episode of Pari.",
-        status:"COMING SOON"
+        description:"Pari — Episode 06",
+        thumbnail:"images/pari-ep6.png",
+        status:"RELEASED",
+        instagram:"https://www.instagram.com/reel/DgIEOhstExk/?gwpx=bnV5eHVjcG5ieGFp"
       },
 
       {
@@ -1100,6 +1107,21 @@ function openFolder(folder){
     }else{
 
       card.append(symbol, heading, description, status);
+      if(item.status === "OUT NOW"){
+        status.classList.add("released");
+        if(item.youtube){
+          const actions=document.createElement("div");
+          actions.className="card-action";
+          const watch=document.createElement("a");
+          watch.className="watch-btn youtube-btn";
+          watch.href=item.youtube;
+          watch.target="_blank";
+          watch.rel="noopener noreferrer";
+          watch.textContent="▶ LISTEN / WATCH NOW";
+          actions.appendChild(watch);
+          card.appendChild(actions);
+        }
+      }
       if(item.status === "COMING SOON"){
         card.classList.add("soon-card");
         card.setAttribute("role","button");
