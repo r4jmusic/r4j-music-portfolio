@@ -295,6 +295,28 @@ nav{
 @media(max-width:600px){.pinned-release{gap:22px}.pinned-art-link{width:100%;max-width:none}.pinned-copy{width:100%}}
 
 
+
+
+/* PAID PROJECTS CTA */
+.paid-work{margin:38px auto 0;max-width:980px;padding:30px;border:1px solid rgba(159,193,255,.38);border-radius:20px;background:linear-gradient(135deg,rgba(159,193,255,.10),rgba(255,255,255,.025))}
+.paid-work h3{font-size:clamp(22px,3vw,30px);margin:0 0 10px}
+.paid-work p{color:var(--muted);font-size:14px;line-height:1.75;max-width:700px;margin:0 0 20px}
+.paid-work-actions{display:flex;gap:12px;flex-wrap:wrap}
+.paid-work-link{display:inline-flex;align-items:center;justify-content:center;padding:12px 19px;border-radius:999px;text-decoration:none;font-weight:650;font-size:13px;border:1px solid rgba(255,255,255,.22);color:inherit}
+.paid-work-link.primary{background:#e8edf7;color:#10131a;border-color:#e8edf7}
+
+/* SERVICES */
+.services-section{padding:90px 8%;background:linear-gradient(180deg,rgba(255,255,255,.018),transparent)}
+.services-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.service-card{position:relative;padding:25px 23px;min-height:190px;border:1px solid var(--line,rgba(255,255,255,.12));border-radius:18px;background:rgba(255,255,255,.035);transition:transform .25s,border-color .25s}
+.service-card:hover{transform:translateY(-5px);border-color:rgba(159,193,255,.55)}
+.service-icon{font-size:25px;display:block;margin-bottom:17px}
+.service-card h3{font-size:18px;margin:0 0 9px}
+.service-card p{color:var(--muted);font-size:13px;line-height:1.65;margin:0}
+.services-note{margin-top:24px;color:var(--muted);font-size:13px;line-height:1.7}
+@media(max-width:760px){.services-section{padding:70px 6%}.services-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.service-card{padding:19px 16px;min-height:190px}}
+@media(max-width:480px){.services-grid{grid-template-columns:1fr}.service-card{min-height:0}}
+
 /* ABOUT */
 
 .about{padding:0 8% 100px}
@@ -627,6 +649,7 @@ footer{
   <div class="nav-links">
     <a href="#home">Home</a>
     <a href="#projects">Projects</a>
+    <a href="#services">Services</a>
     <a href="#music">Music</a>
     <a href="#about">About</a>
   </div>
@@ -685,6 +708,62 @@ footer{
       </button>
 
     </div>
+  </section>
+
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+    <div class="section-heading">
+      <div>
+        <div class="eyebrow">SERVICES FOR YOUR NEXT PROJECT</div>
+        <h2>Services & creative solutions.</h2>
+        <p>From the first idea to the final experience — let's build something memorable.</p>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <article class="service-card">
+        <span class="service-icon">🎹</span>
+        <h3>Music Production</h3>
+        <p>Original compositions, beats, arrangements and complete music production for your vision.</p>
+      </article>
+      <article class="service-card">
+        <span class="service-icon">🎙️</span>
+        <h3>Audio Production</h3>
+        <p>Vocal recording support, editing, mixing and mastering for a clean, release-ready sound.</p>
+      </article>
+      <article class="service-card">
+        <span class="service-icon">🎬</span>
+        <h3>Short Film Production</h3>
+        <p>Creative concepts, storytelling, scripting and production for short-form cinematic projects.</p>
+      </article>
+      <article class="service-card">
+        <span class="service-icon">🔊</span>
+        <h3>Sound Design</h3>
+        <p>Custom sound effects, ambience and sonic details that bring scenes and stories to life.</p>
+      </article>
+      <article class="service-card">
+        <span class="service-icon">🎧</span>
+        <h3>Background Score</h3>
+        <p>Emotional and cinematic background music for films, reels, trailers and visual content.</p>
+      </article>
+      <article class="service-card">
+        <span class="service-icon">📱</span>
+        <h3>Audio for Digital Content</h3>
+        <p>Music and audio solutions for YouTube videos, Instagram reels, promos and branded content.</p>
+      </article>
+    </div>
+
+    <div class="paid-work">
+      <div class="eyebrow">NOW ACCEPTING PAID PROJECTS</div>
+      <h3>Have a project? Let's make it happen.</h3>
+      <p>Available for paid music, audio and visual storytelling projects. Every project is discussed individually — share your idea, requirements and timeline to receive a custom quote. Booking is confirmed once the scope, fee and schedule are agreed.</p>
+      <div class="paid-work-actions">
+        <a class="paid-work-link primary" href="mailto:r4jproduction@gmail.com?subject=Paid%20Project%20Inquiry">Discuss a Paid Project</a>
+        <a class="paid-work-link" href="mailto:r4jproduction@gmail.com?subject=Quote%20Request">Request a Quote</a>
+      </div>
+    </div>
+    <p class="services-note">Have a different creative idea? Get in touch — let's discuss your project and shape the right sound or story for it.</p>
   </section>
 
   <!-- PINNED RELEASE -->
@@ -776,7 +855,7 @@ const folderData = {
         thumbnail:"images/pari-ep1.png",
         title:"Pari",
         description:"A short film series. Episodes 01–08.",
-        status:"6 EPISODES RELEASED"
+        status:"2 EPISODES RELEASED"
       }
 
       /*
@@ -876,9 +955,7 @@ const filmSeries = {
         icon:"🎬",
         title:"EP 03",
         description:"The next episode of Pari.",
-        thumbnail:"images/pari-ep3.png",
-        status:"RELEASED",
-        instagram:"https://www.instagram.com/reel/Df2CsAPtccT/?evlk=YXFhajRmOXRkOHQw"
+        status:"COMING SOON"
       },
 
       {
